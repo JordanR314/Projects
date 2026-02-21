@@ -1,24 +1,54 @@
+import java.util.Scanner; // Import Scanner
 
-public class Tests {
-    public static void main(String[] args)
-    {
-        // Attributes the variables for the three test scores
-        double Score1 = 76.5;
-        double Score2 = 95.8;
-        double Score3 = 84.9;
+public class Tests { // Sets up class Tests with private data fields
+    private double average;
+    private int count;
+    private int score;
 
-        // Calculates the average of the test scores by dividing the sum by 3
-        double avg = (Score1 + Score2 + Score3)/3;
-
-        // Rounds the average to 2 decimal places using the round method
-        double davg = Math.round(avg * 100.0)/100.0;
-
-        // Prints the three test scores and their average
-        System.out.println("Test Score 1: " + Score1);
-        System.out.println("Test Score 2: " + Score2);
-        System.out.println("Test Score 3: " + Score3);
-        System.out.println("The average of the 3 tests scores is: " + davg);
+    public Tests(){ // Builds constructor for Tests with methods getCount and setScore
+        this.getCount();
+        this.setScore(0);
     }
 
-}
+    public void getAverage() { // Method for getting the average of the scores, scanner initiate and sets sum and count
+        Scanner scnr = new Scanner(System.in);
+        double sumofscores = 0.0;
+        count = 0;
 
+        while (true) { // While loop for entering scores
+            System.out.println("Enter a test score (-1 to quit)");
+            score = scnr.nextInt();
+
+            if (score == -1) { // if score is -1, breaks loop
+                break;
+            }
+
+            sumofscores += score; // attributes the score to sum and adds 1 to count for each score
+            count++;
+        }
+
+        if (count == 0) { // If no scores, average will be NaN
+            average = sumofscores / count;
+        }
+        else { // Calculates average from sum and scores
+            average = sumofscores / count;
+        }
+    }
+
+    public int getCount(){ // Sets getCount method for getting the count
+        return count;
+    }
+
+    void setScore(int newScore){ // Sets setScore method to set current score
+        this.score = newScore;
+    }
+
+    public int getScore(){ // Sets getScore method to get the current score
+        return this.score;
+    }
+
+        public String toString () { // Sets toString method to format the output with count and average
+            String Output = "The average of the " + count + " scores entered is ";
+            return Output + String.format("%.2f", average);
+        }
+    }
