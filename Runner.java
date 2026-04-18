@@ -1,69 +1,46 @@
-//this class tests all methods in the Calc class
-//the Calc class exposes the following methods:
-//add, subtract, multiply, divide
-//user is prompted for input
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import javax.swing.JOptionPane;
+/**
+ This program demonstrates the Exam class,
+ which extends the Assessment class.
+ */
+
 public class Runner {
-    public static void main(String[] args){
-        //instantiate a Calc object
-        Calc myCalculator = new Calc();
-        //get user input for two numbers
-        Scanner scan = new Scanner(System.in);
 
-        // Setup for n1 value and boolean, input checking
-        double n1 = 0.0;
-        boolean corr = false;
+        public static void main(String[] args)
+        {
+            try {
+                String input;     // To hold input
+                int questions;    // Number of questions
+                int missed;       // Number of questions missed
 
-        while (!corr) { // While loop to repeatedly check input
-            System.out.println("Please enter the first number: ");
+                // Get the number of questions on the exam
+                input = JOptionPane.showInputDialog("How many questions are on the exam?");
+                questions = Integer.parseInt(input);
 
-            if (scan.hasNextDouble()) { // Checks if the input is a double
-                n1 = scan.nextDouble();
-                corr = true; // Input is valid, exit the loop
+                // Get the number of questions the student missed
+                input = JOptionPane.showInputDialog("How many questions did the student miss?");
+                missed = Integer.parseInt(input);
+
+                // Create an Exam object
+                Exam exam = new Exam(questions, missed);
+
+                // Display the test results
+                String message = "Each question counts " + exam.getPointsEach();
+                message += " points.\nThe exam score is " + exam.getScore();
+                message += "\nThe exam grade is " + exam.getGrade();
+                JOptionPane.showMessageDialog(null, message);
+
+                System.exit(0);
             }
-            else { // Input is invalid
-                System.out.println("Please enter a valid input: ");
-                scan.next(); // Takes the invalid input
+            catch (NumberFormatException e){
+                System.out.println("NumberFormatException: " + e.getMessage());
+                System.exit(0);
             }
-        }
-
-        // Setup for n2 value and boolean, input checking
-        double n2 = 0.0;
-        boolean corr1 = false;
-
-        while (!corr1) { // While loop to repeatedly check input
-            System.out.println("Please enter the second number: ");
-
-            if (scan.hasNextDouble()) { // Checks if the input is a double
-                n2 = scan.nextDouble();
-                corr1 = true; // Input is correct
-            }
-            else { // Input is invalid
-                System.out.println("Please enter a valid input: ");
-                scan.next(); // Takes the invalid input
+            catch (ArithmeticException e){
+                System.out.println("ArithmeticException: " + e.getMessage());
+                System.exit(0);
             }
         }
-
-        //pass the numbers to the Calc object
-        myCalculator.setNum1(n1);
-        myCalculator.setNum2(n2);
-
-        //output from Calc instance
-        System.out.println(myCalculator);
-
-        //examining the instance private data fields by calling get methods
-        System.out.println("Calling num1 get method: " + myCalculator.getNum1());
-        System.out.println("Calling num2 get method: " + myCalculator.getNum2());
-
-        //calling Calc methods directly
-        //can use a local variable for sum if you need that value for another calculation
-        double sum = myCalculator.add();
-        System.out.println("The sum is: " + sum);
-
-        //or if you don't, then just display the difference, product and quotient
-        System.out.println("The difference is: " + myCalculator.subtract());
-        System.out.println("The product is: " + myCalculator.multiply());
-        System.out.println("The quotient is: " + myCalculator.divide());
     }
-}
+
+
