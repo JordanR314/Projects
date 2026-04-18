@@ -8,6 +8,7 @@ public class Runner {
 
         public static void main(String[] args)
         {
+            //try block to check the inputs as integers and the questions as not 0
             try {
                 String input;     // To hold input
                 int questions;    // Number of questions
@@ -32,10 +33,12 @@ public class Runner {
 
                 System.exit(0);
             }
+            // Catches the exception for input not being an integer
             catch (NumberFormatException e){
                 System.out.println("NumberFormatException: " + e.getMessage());
                 System.exit(0);
             }
+            // Catches the exception for when the questions are 0 and the questions missed are 0
             catch (ArithmeticException e){
                 System.out.println("ArithmeticException: " + e.getMessage());
                 System.exit(0);
